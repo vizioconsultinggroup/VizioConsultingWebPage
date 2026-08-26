@@ -1,0 +1,8 @@
+<aside class="cookie-panel" data-cookie hidden aria-label="Süti beállítások"><div><h2>Adatvédelmi beállítások</h2><p>A szükséges sütik az oldal működését biztosítják. Analitikai és marketing mérést csak a hozzájárulásod után kapcsolunk be.</p></div><div class="cookie-actions"><button class="button outline-button" data-essential>Csak szükséges</button><button class="button" data-accept>Összes elfogadása</button><a href="/cookie">Részletek</a></div></aside>
+<script>
+  const panel = document.querySelector('[data-cookie]');
+  const key = 'vizio-consent';
+  if (!localStorage.getItem(key)) panel?.removeAttribute('hidden');
+  panel?.querySelector('[data-essential]')?.addEventListener('click',()=>{ localStorage.setItem(key,'essential'); panel.setAttribute('hidden',''); });
+  panel?.querySelector('[data-accept]')?.addEventListener('click',()=>{ localStorage.setItem(key,'all'); panel.setAttribute('hidden',''); window.dispatchEvent(new Event('vizio-consent')); });
+</script>

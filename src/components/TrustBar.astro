@@ -1,0 +1,4 @@
+---
+const items = [['Több pénzügyi terület','Számos pénzügyi megoldás egy helyen.'],['Személyre szabható lehetőségek','Különböző élethelyzetekhez különböző megoldások.'],['Hosszú távú szemlélet','Nem csak a jelenlegi pénzügyi helyzet számít.'],['Egyszerűbb ügyintézés','Kevesebb utánajárás, átláthatóbb lehetőségek.']];
+---
+<section class="trust-bar" aria-label="Értékeink">{items.map(([title,text],i)=><article class="reveal"><span>0{i+1}</span><div><h3>{title}</h3><p>{text}</p></div></article>)}</section>

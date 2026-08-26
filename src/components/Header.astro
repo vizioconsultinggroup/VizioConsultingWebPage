@@ -1,0 +1,22 @@
+---
+const nav = [['Rólunk','#rolunk'],['Szolgáltatások','#szolgaltatasok'],['Okoshitel','#okoshitel'],['Csapat','#csapat'],['Kapcsolat','#kapcsolat']];
+---
+<header class="site-header" data-header>
+  <a class="brand" href="#fooldal" aria-label="Vizio Consulting Group – Főoldal">
+    <span><b>VIZIO</b><small>CONSULTING GROUP</small></span>
+  </a>
+  <nav aria-label="Fő navigáció">{nav.map(([label, href]) => <a href={href}>{label}</a>)}</nav>
+  <a class="button button-small" href="#idopont">Időpontfoglalás</a>
+  <button class="menu-toggle" type="button" aria-label="Menü megnyitása" aria-expanded="false"><span></span><span></span></button>
+  <div class="mobile-menu" aria-hidden="true">{nav.map(([label, href]) => <a href={href}>{label}</a>)}<a class="button" href="#idopont">Időpontfoglalás</a></div>
+</header>
+<script>
+  const header = document.querySelector('[data-header]');
+  const toggle = header?.querySelector('.menu-toggle');
+  const menu = header?.querySelector('.mobile-menu');
+  const close = () => { toggle?.setAttribute('aria-expanded','false'); menu?.setAttribute('aria-hidden','true'); document.body.classList.remove('menu-open'); };
+  toggle?.addEventListener('click', () => { const open = toggle.getAttribute('aria-expanded') === 'true'; toggle.setAttribute('aria-expanded', String(!open)); menu?.setAttribute('aria-hidden', String(open)); document.body.classList.toggle('menu-open', !open); });
+  menu?.querySelectorAll('a').forEach((link) => link.addEventListener('click', close));
+  const onScroll = () => header?.classList.toggle('scrolled', scrollY > 24);
+  onScroll(); addEventListener('scroll', onScroll, { passive: true });
+</script>

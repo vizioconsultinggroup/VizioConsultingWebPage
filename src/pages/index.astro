@@ -1,0 +1,18 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import TrustBar from '../components/TrustBar.astro';
+import Sections from '../components/Sections.astro';
+import Footer from '../components/Footer.astro';
+import CookieConsent from '../components/CookieConsent.astro';
+---
+<Layout>
+  <Header />
+  <main><Hero /><TrustBar /><Sections /></main>
+  <Footer /><CookieConsent />
+  <script>
+    const reveal = () => { const observer = new IntersectionObserver((entries)=>entries.forEach((entry)=>{if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target);}}),{threshold:.12}); document.querySelectorAll('.reveal').forEach(el=>observer.observe(el)); };
+    reveal(); document.addEventListener('astro:page-load',reveal);
+  </script>
+</Layout>

@@ -1,0 +1,35 @@
+---
+import '../styles/global.css';
+import { siteConfig } from '../data/site';
+interface Props { title?: string; description?: string; }
+const { title = 'Vizio Consulting Group | Pénzügyi megoldások egy helyen', description = 'Bankszámla, megtakarítások, hitelek, Okoshitel, biztosítások és hosszú távú pénzügyi megoldások a Vizio Consulting Groupnál.' } = Astro.props;
+const canonical = new URL(Astro.url.pathname, siteConfig.domain);
+const structuredData = { '@context':'https://schema.org', '@type':'FinancialService', name:siteConfig.companyName, url:siteConfig.domain, email:siteConfig.email };
+---
+<!doctype html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#071E35" />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" /><meta property="og:locale" content="hu_HU" /><meta property="og:title" content={title} /><meta property="og:description" content={description} /><meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" /><meta name="twitter:title" content={title} /><meta name="twitter:description" content={description} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet" />
+    <title>{title}</title>
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  </head>
+  <body><slot />
+    <script is:inline define:vars={{ gaId: siteConfig.gaId, metaPixelId: siteConfig.metaPixelId }}>
+      function loadOptionalTracking(){
+        if(localStorage.getItem('vizio-consent') !== 'all') return;
+        if(gaId && !document.querySelector('[data-vizio-ga]')){ const s=document.createElement('script'); s.async=true; s.src='https://www.googletagmanager.com/gtag/js?id='+encodeURIComponent(gaId); s.dataset.vizioGa=''; document.head.appendChild(s); window.dataLayer=window.dataLayer||[]; window.gtag=function(){dataLayer.push(arguments)}; window.gtag('js',new Date()); window.gtag('config',gaId); }
+        if(metaPixelId && !document.querySelector('[data-vizio-meta]')){ const s=document.createElement('script'); s.dataset.vizioMeta=''; s.textContent="!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','"+metaPixelId+"');fbq('track','PageView');"; document.head.appendChild(s); }
+      }
+      loadOptionalTracking(); window.addEventListener('vizio-consent',loadOptionalTracking);
+    </script>
+  </body>
+</html>
