@@ -1,0 +1,8 @@
+---
+import { siteConfig } from '../data/site';
+---
+<script is:inline define:vars={{ config: { gaId:siteConfig.gaId, metaPixelId:siteConfig.metaPixelId, contactEndpoint:siteConfig.contactEndpoint } }}>window.__VIZIO_CONFIG__ = config;</script>
+<script>
+  import { initAnalytics } from '../utils/analytics';
+  initAnalytics(window.__VIZIO_CONFIG__);
+</script>

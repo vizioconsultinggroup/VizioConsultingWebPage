@@ -22,4 +22,8 @@ A statikus build a `dist` mappába készül.
 
 ## Űrlap és analitika
 
-Az űrlap alapállapotban a felhasználó levelezőprogramját nyitja meg, tehát nincs ál-beküldés. Formspree vagy Cloudflare Pages Functions az `action` cseréjével kapcsolható be. A `gaId` és `metaPixelId` csak látogatói hozzájárulás után aktiválódik.
+Az űrlap alapállapotban a felhasználó levelezőprogramját nyitja meg, tehát nincs ál-beküldés. Online leadfogadáshoz állítsd a `contactEndpoint` értékét `/api/contact`-ra, és a Cloudflare Workerben add meg titokként a `LEAD_WEBHOOK_URL` változót. Ez lehet később e-mail-, CRM- vagy Google Sheets-webhook.
+
+A `gaId` és `metaPixelId` kizárólag a megfelelő látogatói hozzájárulás után aktiválódik. A Search Console azonosító a `googleSiteVerification`, az időpontfoglaló a `bookingUrl`, a Google Business link pedig a `googleBusinessUrl` mezőben adható meg.
+
+Konverziómérés teszteléséhez nyisd meg például az `/okoshitel?utm_source=test&utm_medium=manual&utm_campaign=qa` URL-t, majd ellenőrizd a böngésző fejlesztői eszközeiben a sessionStorage `vizio-campaign` bejegyzését és az űrlap rejtett mezőit.

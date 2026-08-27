@@ -1,0 +1,22 @@
+---
+import { siteConfig } from '../data/site';
+interface Props { service?: string; smartLoan?: boolean; compact?: boolean; }
+const { service = '', smartLoan = false, compact = false } = Astro.props;
+const endpoint = siteConfig.contactEndpoint;
+const action = endpoint || `mailto:${siteConfig.email}`;
+const formEvent = smartLoan ? 'okoshitel_form' : 'contact_form';
+const interestAreas = ['Bankszámla','Megtakarítás','Hitel','Okoshitel','Otthonteremtés','Biztosítás','Nyugdíj','Egyéb'];
+---
+<form class:list={['contact-form','tracked-form',{compact}]} action={action} method="post" enctype={endpoint ? 'application/x-www-form-urlencoded' : 'text/plain'} data-form-event={formEvent} data-endpoint={endpoint}>
+  <input type="hidden" name="service" value={service} />
+  <input class="form-honeypot" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+  {['utm_source','utm_medium','utm_campaign','utm_content','utm_term','landing_page','referrer'].map((name)=><input type="hidden" name={name} data-tracking-field={name} />)}
+  <div class="field-row"><label>Név<input required name="name" autocomplete="name" /></label><label>Telefonszám<input required type="tel" name="phone" autocomplete="tel" /></label></div>
+  <div class="field-row"><label>E-mail<input required type="email" name="email" autocomplete="email" /></label>{smartLoan ? <label>Jelenlegi hitel típusa<select name="loan_type" required><option value="">Válassz típust</option><option>Lakáshitel</option><option>Személyi kölcsön</option><option>Más típusú hitel</option></select></label> : <label>Érdeklődési terület<select name="interest" required><option value="">Válassz területet</option>{interestAreas.map((area)=><option selected={area===service}>{area}</option>)}</select></label>}</div>
+  {smartLoan && <div class="optional-fields"><label>Fennálló hitel összege <small>opcionális</small><input name="loan_balance" inputmode="numeric" /></label><label>Hátralévő futamidő <small>opcionális</small><input name="remaining_term" /></label><label>Jelenlegi havi törlesztő <small>opcionális</small><input name="monthly_payment" inputmode="numeric" /></label></div>}
+  {!smartLoan && !compact && <label>Üzenet<textarea name="message" rows="4" required></textarea></label>}
+  <label class="checkbox"><input type="checkbox" name="privacy" required /><span>Elfogadom az <a href="/adatkezeles">adatkezelési tájékoztatót</a>.</span></label>
+  <button class="button" type="submit"><span>{smartLoan ? 'Kérek személyre szabott számítást' : 'Kapcsolatfelvétel'}</span></button>
+  <p class="form-status" data-form-status aria-live="polite"></p>
+  {!endpoint && <p class="form-note">A beküldés a levelezőprogramodban nyílik meg. Online leadfogadás a <code>contactEndpoint</code> beállításával aktiválható.</p>}
+</form>

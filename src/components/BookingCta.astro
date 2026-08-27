@@ -1,0 +1,7 @@
+---
+import { siteConfig } from '../data/site';
+interface Props { fallback?: string; }
+const { fallback = '#kapcsolat' } = Astro.props;
+const href = siteConfig.bookingUrl || fallback;
+---
+<section class="booking landing-booking" id="idopont"><div class="booking-mark" aria-hidden="true">V</div><div class="reveal"><p class="kicker light">Személyes konzultáció</p><h2>Beszéljük át a <em>lehetőségeidet.</em></h2><p>Egy rövid beszélgetéssel tisztább képet kaphatsz a következő lépésről.</p><a class="button" href={href} data-event="booking_click">Időpontot foglalok</a></div></section>

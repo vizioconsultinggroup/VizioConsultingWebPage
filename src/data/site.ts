@@ -5,9 +5,12 @@ export const siteConfig = {
   phone: '06 20 287 4336',
   address: '',
   bookingUrl: '',
+  googleBusinessUrl: '',
   facebook: '',
   instagram: '',
   linkedin: '',
   gaId: '',
   metaPixelId: '',
+  googleSiteVerification: '',
+  contactEndpoint: '',
 };

@@ -1,0 +1,26 @@
+---
+import type { LandingPage as PageData } from '../data/landingPages';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import CookieConsent from './CookieConsent.astro';
+import ContactForm from './ContactForm.astro';
+import BookingCta from './BookingCta.astro';
+interface Props { page: PageData; }
+const { page } = Astro.props;
+const smartLoan = page.slug === 'okoshitel';
+---
+<Header />
+<main>
+  <section class:list={['landing-hero',{ 'smart-landing': smartLoan }]}>
+    <div class="landing-hero-copy reveal"><p class="eyebrow"><span></span>{page.eyebrow} / Vizio Consulting Group</p><h1>{page.title}</h1><p class="lead">{page.intro}</p><div class="actions"><a class="button" href="#kapcsolat" data-event={page.event}>{page.cta}</a>{page.secondaryCta && <a class="landing-secondary" href="#kapcsolat" data-event={page.event}>{page.secondaryCta} <span>→</span></a>}</div></div>
+    <div class="landing-symbol" aria-hidden="true"><span>V</span><small>{page.eyebrow}</small></div>
+  </section>
+  <section class="landing-benefits section"><div class="section-heading reveal"><div><p class="kicker">Amiért érdemes átnézni</p><h2>Tisztább lehetőségek.<br/><em>Tudatosabb következő lépés.</em></h2></div><p>Röviden összefoglaltuk azokat a szempontokat, amelyek a döntésednél valóban számíthatnak.</p></div><div class="landing-benefit-grid">{page.benefits.map((benefit,i)=><article class="reveal"><span>0{i+1}</span><h3>{benefit.title}</h3><p>{benefit.text}</p></article>)}</div></section>
+  {page.categories && <section class="landing-categories section"><p class="kicker reveal">Lehetőségek és élethelyzetek</p><h2 class="reveal">Melyik terület <em>érdekel?</em></h2><div class="category-grid">{page.categories.map((category)=><a href="#kapcsolat" data-event={page.event} class="reveal">{category}<span>→</span></a>)}</div></section>}
+  {page.related && <nav class="related-links section" aria-label="Kapcsolódó szolgáltatások"><p class="kicker">Kapcsolódó lehetőségek</p><div>{page.related.map((item)=><a href={item.href}>{item.label}<span>↗</span></a>)}</div></nav>}
+  <section class:list={['landing-contact','section',{ 'smart-contact': smartLoan }]} id="kapcsolat"><div class="landing-contact-copy reveal"><p class="kicker">{smartLoan ? 'Személyre szabott számítás' : 'Következő lépés'}</p><h2>{smartLoan ? 'Nézzük meg a te hiteledet.' : 'Beszéljük át, mi illeszkedhet hozzád.'}</h2><p>{smartLoan ? 'Adj meg néhány alapadatot, és felvesszük veled a kapcsolatot a személyre szabott áttekintéshez.' : 'Kérj visszahívást, és egy rövid beszélgetésben áttekintjük a releváns lehetőségeket.'}</p></div><ContactForm service={page.eyebrow} smartLoan={smartLoan} compact={!smartLoan} /></section>
+  <p class="landing-disclaimer">{page.disclaimer}</p>
+  <BookingCta fallback="#kapcsolat" />
+</main>
+<Footer showMobileCta={false} /><CookieConsent />
+<a class="landing-mobile-cta" href="#kapcsolat" data-event={page.event}>{smartLoan ? 'Kérek számítást' : 'Időpontfoglalás'}</a>

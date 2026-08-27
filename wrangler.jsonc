@@ -1,9 +1,11 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "vizioconsultingwebpage",
+  "main": "./src/worker.ts",
   "compatibility_date": "2026-08-27",
   "assets": {
     "directory": "./dist",
+    "binding": "ASSETS",
     "html_handling": "auto-trailing-slash"
   }
 }

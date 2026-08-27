@@ -1,8 +1,14 @@
-<aside class="cookie-panel" data-cookie hidden aria-label="Süti beállítások"><div><h2>Adatvédelmi beállítások</h2><p>A szükséges sütik az oldal működését biztosítják. Analitikai és marketing mérést csak a hozzájárulásod után kapcsolunk be.</p></div><div class="cookie-actions"><button class="button outline-button" data-essential>Csak szükséges</button><button class="button" data-accept>Összes elfogadása</button><a href="/cookie">Részletek</a></div></aside>
+<aside class="cookie-panel" data-cookie hidden aria-label="Süti beállítások">
+  <div class="cookie-summary"><p class="kicker light">Adatvédelem</p><h2>Te döntöd el, mit engedélyezel.</h2><p>A szükséges tárolás az oldal működését biztosítja. Analitikai és marketing mérést csak a választásod után kapcsolunk be.</p></div>
+  <div class="cookie-settings" data-cookie-settings hidden><label><span><b>Szükséges</b><small>Az oldal alapműködéséhez</small></span><input type="checkbox" checked disabled /></label><label><span><b>Analitika</b><small>Névtelen használati statisztikák</small></span><input type="checkbox" data-consent-analytics /></label><label><span><b>Marketing</b><small>Hirdetési eredmények mérése</small></span><input type="checkbox" data-consent-marketing /></label></div>
+  <div class="cookie-actions"><button class="button outline-button" type="button" data-essential>Csak szükséges</button><button class="cookie-text-button" type="button" data-settings>Beállítások</button><button class="button" type="button" data-accept>Elfogadom</button></div>
+</aside>
 <script>
-  const panel = document.querySelector('[data-cookie]');
-  const key = 'vizio-consent';
-  if (!localStorage.getItem(key)) panel?.removeAttribute('hidden');
-  panel?.querySelector('[data-essential]')?.addEventListener('click',()=>{ localStorage.setItem(key,'essential'); panel.setAttribute('hidden',''); });
-  panel?.querySelector('[data-accept]')?.addEventListener('click',()=>{ localStorage.setItem(key,'all'); panel.setAttribute('hidden',''); window.dispatchEvent(new Event('vizio-consent')); });
+  import { getConsent, setConsent } from '../utils/analytics';
+  const panel = document.querySelector<HTMLElement>('[data-cookie]');
+  const settings = panel?.querySelector<HTMLElement>('[data-cookie-settings]');
+  if (!getConsent()) panel?.removeAttribute('hidden');
+  panel?.querySelector('[data-settings]')?.addEventListener('click',()=>settings?.toggleAttribute('hidden'));
+  panel?.querySelector('[data-essential]')?.addEventListener('click',()=>{ setConsent({analytics:false,marketing:false}); panel?.setAttribute('hidden',''); });
+  panel?.querySelector('[data-accept]')?.addEventListener('click',()=>{ const custom=!settings?.hasAttribute('hidden'); const analytics=custom?!!panel?.querySelector<HTMLInputElement>('[data-consent-analytics]')?.checked:true; const marketing=custom?!!panel?.querySelector<HTMLInputElement>('[data-consent-marketing]')?.checked:true; setConsent({analytics,marketing}); panel?.setAttribute('hidden',''); });
 </script>

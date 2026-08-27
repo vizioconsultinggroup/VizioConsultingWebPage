@@ -1,0 +1,10 @@
+---
+import Layout from '../layouts/Layout.astro';
+import LandingPage from '../components/LandingPage.astro';
+import { landingPages, type LandingPage as PageData } from '../data/landingPages';
+export const getStaticPaths = () => landingPages.map((page) => ({ params:{ slug:page.slug }, props:{ page } }));
+interface Props { page: PageData; }
+const { page } = Astro.props;
+const title = `${page.eyebrow} | Vizio Consulting Group`;
+---
+<Layout title={title} description={page.description} socialTitle={page.title} socialDescription={page.description}><LandingPage page={page} /></Layout>
