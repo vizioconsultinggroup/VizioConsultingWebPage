@@ -3,10 +3,10 @@ import '../styles/global.css';
 import { siteConfig } from '../data/site';
 import Analytics from '../components/Analytics.astro';
 interface Props { title?: string; description?: string; socialTitle?: string; socialDescription?: string; }
-const { title = 'Vizio Consulting Group | Pénzügyi megoldások egy helyen', description = 'Bankszámla, megtakarítások, hitelek, Okoshitel, biztosítások és hosszú távú pénzügyi megoldások a Vizio Consulting Groupnál.', socialTitle = title, socialDescription = description } = Astro.props;
+const { title = 'VIZIO Consulting | Pénzügyi megoldások egy helyen', description = 'Bankszámla, megtakarítások, hitelek, Okoshitel, biztosítások és hosszú távú pénzügyi megoldások a VIZIO Consultingnál.', socialTitle = title, socialDescription = description } = Astro.props;
 const canonical = new URL(Astro.url.pathname, siteConfig.domain);
 const socialImage = new URL('/og.png', siteConfig.domain);
-const structuredData = { '@context':'https://schema.org', '@type':['Organization','FinancialService'], name:siteConfig.companyName, url:siteConfig.domain, email:siteConfig.email, telephone:siteConfig.phone };
+const structuredData = { '@context':'https://schema.org', '@type':['Organization','FinancialService'], name:siteConfig.brandName, legalName:siteConfig.operatorName, url:siteConfig.domain, email:siteConfig.email, telephone:siteConfig.phoneHref };
 ---
 <!doctype html>
 <html lang="hu">
@@ -17,7 +17,7 @@ const structuredData = { '@context':'https://schema.org', '@type':['Organization
     <meta name="theme-color" content="#071E35" />
     {siteConfig.googleSiteVerification && <meta name="google-site-verification" content={siteConfig.googleSiteVerification} />}
     <link rel="canonical" href={canonical} />
-    <meta property="og:type" content="website" /><meta property="og:locale" content="hu_HU" /><meta property="og:title" content={socialTitle} /><meta property="og:description" content={socialDescription} /><meta property="og:url" content={canonical} /><meta property="og:image" content={socialImage} /><meta property="og:image:width" content="1733" /><meta property="og:image:height" content="908" /><meta property="og:image:alt" content={`${socialTitle} – Vizio Consulting Group`} />
+    <meta property="og:type" content="website" /><meta property="og:locale" content="hu_HU" /><meta property="og:title" content={socialTitle} /><meta property="og:description" content={socialDescription} /><meta property="og:url" content={canonical} /><meta property="og:image" content={socialImage} /><meta property="og:image:width" content="1536" /><meta property="og:image:height" content="1024" /><meta property="og:image:alt" content={`${socialTitle} – VIZIO Consulting`} />
     <meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content={socialTitle} /><meta name="twitter:description" content={socialDescription} /><meta name="twitter:image" content={socialImage} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" /><link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" /><link rel="shortcut icon" href="/favicon.ico" /><link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -26,5 +26,5 @@ const structuredData = { '@context':'https://schema.org', '@type':['Organization
     <title>{title}</title>
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   </head>
-  <body><slot /><Analytics /><script>const reveal=()=>{const observer=new IntersectionObserver((entries)=>entries.forEach((entry)=>{if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target);}}),{threshold:.12});document.querySelectorAll('.reveal').forEach((el)=>observer.observe(el));};reveal();document.addEventListener('astro:page-load',reveal);</script></body>
+  <body><a class="skip-link" href="#main-content">Ugrás a tartalomra</a><slot /><Analytics /><script>const reveal=()=>{if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.querySelectorAll('.reveal').forEach((el)=>el.classList.add('visible'));return;}const observer=new IntersectionObserver((entries)=>entries.forEach((entry)=>{if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target);}}),{threshold:.12});document.querySelectorAll('.reveal').forEach((el)=>observer.observe(el));};reveal();document.addEventListener('astro:page-load',reveal);</script></body>
 </html>

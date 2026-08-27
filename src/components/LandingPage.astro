@@ -10,9 +10,9 @@ const { page } = Astro.props;
 const smartLoan = page.slug === 'okoshitel';
 ---
 <Header />
-<main>
+<main id="main-content">
   <section class:list={['landing-hero',{ 'smart-landing': smartLoan }]}>
-    <div class="landing-hero-copy reveal"><p class="eyebrow"><span></span>{page.eyebrow} / Vizio Consulting Group</p><h1>{page.title}</h1><p class="lead">{page.intro}</p><div class="actions"><a class="button" href="#kapcsolat" data-event={page.event}>{page.cta}</a>{page.secondaryCta && <a class="landing-secondary" href="#kapcsolat" data-event={page.event}>{page.secondaryCta} <span>→</span></a>}</div></div>
+    <div class="landing-hero-copy reveal"><p class="eyebrow"><span></span>{page.eyebrow} / VIZIO Consulting</p><h1>{page.title}</h1><p class="lead">{page.intro}</p><div class="actions"><a class="button" href="#kapcsolat" data-event={page.event}>{page.cta}</a>{page.secondaryCta && <a class="landing-secondary" href="#kapcsolat" data-event={page.event}>{page.secondaryCta} <span>→</span></a>}</div></div>
     <div class="landing-symbol" aria-hidden="true"><span>V</span><small>{page.eyebrow}</small></div>
   </section>
   <section class="landing-benefits section"><div class="section-heading reveal"><div><p class="kicker">Amiért érdemes átnézni</p><h2>Tisztább lehetőségek.<br/><em>Tudatosabb következő lépés.</em></h2></div><p>Röviden összefoglaltuk azokat a szempontokat, amelyek a döntésednél valóban számíthatnak.</p></div><div class="landing-benefit-grid">{page.benefits.map((benefit,i)=><article class="reveal"><span>0{i+1}</span><h3>{benefit.title}</h3><p>{benefit.text}</p></article>)}</div></section>

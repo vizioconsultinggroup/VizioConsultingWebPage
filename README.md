@@ -1,4 +1,4 @@
-# Vizio Consulting Group weboldal
+# VIZIO Consulting weboldal
 
 Prémium, reszponzív Astro corporate weboldal. A kapcsolati alapadatok a `src/data/site.ts`, a csapat adatai a `src/data/team.ts` fájlban szerkeszthetők.
 

@@ -1,4 +1,31 @@
 ---
 import LegalPage from '../components/LegalPage.astro';
+import { siteConfig } from '../data/site';
 ---
-<LegalPage title="Impresszum" description="A Vizio Consulting Group weboldalának impresszuma."><p class="legal-note">A szögletes zárójelben szereplő adatok publikálás előtt kitöltendők.</p><h2>Szolgáltató adatai</h2><p><strong>Név:</strong> Vizio Consulting Group<br/><strong>E-mail:</strong> <a href="mailto:office@vizioconsulting.hu" data-event="email_click">office@vizioconsulting.hu</a><br/><strong>Telefon:</strong> <a href="tel:+36202874336" data-event="phone_click">06 20 287 4336</a><br/><strong>Cégjegyzékszám:</strong> [CÉGJEGYZÉKSZÁM]<br/><strong>Adószám:</strong> [ADÓSZÁM]</p><h2>Tárhelyszolgáltató</h2><p>[TÁRHELYSZOLGÁLTATÓ NEVE ÉS ELÉRHETŐSÉGE]</p></LegalPage>
+<LegalPage title="Impresszum" description="A VIZIO Consulting weboldalának üzemeltetői és közvetítői adatai.">
+  {!siteConfig.address && <p class="legal-note">A pontos székhely megadása publikálás előtt még szükséges. A többi alábbi adat a központi konfigurációból érkezik.</p>}
+  <h2>Üzemeltető</h2>
+  <dl class="legal-data">
+    <div><dt>Név</dt><dd>{siteConfig.operatorName}</dd></div>
+    <div><dt>Márkanév</dt><dd>{siteConfig.brandName}</dd></div>
+    <div><dt>EV nyilvántartási szám</dt><dd>{siteConfig.evRegistrationNumber}</dd></div>
+    <div><dt>Adószám</dt><dd>{siteConfig.taxNumber}</dd></div>
+    <div><dt>Székhely</dt><dd>{siteConfig.address || '[KITÖLTENDŐ PONTOS CÍM]'}</dd></div>
+    <div><dt>E-mail</dt><dd><a href={`mailto:${siteConfig.email}`} data-event="email_click">{siteConfig.email}</a></dd></div>
+    {siteConfig.phone && <div><dt>Telefon</dt><dd><a href={`tel:${siteConfig.phoneHref}`} data-event="phone_click">{siteConfig.phone}</a></dd></div>}
+  </dl>
+  <h2>Pénzügyi és biztosításközvetítői információk</h2>
+  <dl class="legal-data">
+    <div><dt>MNB nyilvántartási szám</dt><dd><a href={siteConfig.mnbIntermediaryRegisterUrl} target="_blank" rel="noreferrer">{siteConfig.mnbRegistrationNumber}</a></dd></div>
+    <div><dt>Nyilvántartás kelte</dt><dd>{siteConfig.mnbRegistrationDate}</dd></div>
+    <div><dt>Tevékenység jellege</dt><dd>{siteConfig.intermediaryType}</dd></div>
+    <div><dt>Státusz</dt><dd>{siteConfig.mnbStatus}</dd></div>
+    <div><dt>Kapcsolódó szervezet</dt><dd>{siteConfig.intermediaryOrganization}</dd></div>
+    <div><dt>Kapcsolódó gazdálkodó szerv</dt><dd>{siteConfig.operatorName}</dd></div>
+    <div><dt>Kapcsolódó MNB nyilvántartási szám</dt><dd>{siteConfig.relatedMnbRegistrationNumber}</dd></div>
+  </dl>
+  <h2>Felügyeleti és panaszkezelési információk</h2>
+  <p>Felügyeleti szerv: <a href={siteConfig.mnbUrl} target="_blank" rel="noreferrer">Magyar Nemzeti Bank</a>. Pénzügyi panasz esetén az <a href={siteConfig.ovbComplaintUrl} target="_blank" rel="noreferrer">OVB hivatalos panaszkezelési tájékoztatója</a> az irányadó.</p>
+  <h2>Tárhelyszolgáltatás</h2>
+  <p>A weboldal Cloudflare infrastruktúrán keresztül kerül kiszolgálásra. Szolgáltató: Cloudflare, Inc. – <a href="https://www.cloudflare.com/" target="_blank" rel="noreferrer">cloudflare.com</a>.</p>
+</LegalPage>

@@ -1,9 +1,9 @@
 ---
-const nav = [['Rólunk','/#rolunk'],['Szolgáltatások','/#szolgaltatasok'],['Okoshitel','/okoshitel'],['Csapat','/#csapat'],['Kapcsolat','/#kapcsolat']];
+const nav = [['Főoldal','/'],['Rólunk','/#rolunk'],['Szolgáltatások','/#szolgaltatasok'],['Okoshitel','/okoshitel'],['Csapat','/#csapat'],['Kapcsolat','/#kapcsolat']];
 ---
 <header class="site-header" data-header>
-  <a class="brand" href="/" aria-label="Vizio Consulting Group – Főoldal">
-    <span><b>VIZIO</b><small>CONSULTING GROUP</small></span>
+  <a class="brand" href="/" aria-label="VIZIO Consulting – Főoldal">
+    <span><b>VIZIO</b><small>CONSULTING</small></span>
   </a>
   <nav aria-label="Fő navigáció">{nav.map(([label, href]) => <a href={href}>{label}</a>)}</nav>
   <a class="button button-small" href="/#idopont" data-event="booking_click">Időpontfoglalás</a>
