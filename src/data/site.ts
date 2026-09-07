@@ -5,7 +5,7 @@ export const siteConfig = {
   evRegistrationNumber: '61574599',
   taxNumber: '91627906-1-27',
   domain: 'https://vizioconsulting.hu',
-  email: 'office@vizioconsulting.hu',
+  email: 'lorinczgergely@vizioconsulting.hu',
   phone: '06 20 287 4336',
   phoneHref: '+36202874336',
   address: '',

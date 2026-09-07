@@ -3,14 +3,13 @@ import LegalPage from '../components/LegalPage.astro';
 import { siteConfig } from '../data/site';
 ---
 <LegalPage title="Impresszum" description="A VIZIO Consulting weboldalának üzemeltetői és közvetítői adatai.">
-  {!siteConfig.address && <p class="legal-note">A pontos székhely megadása publikálás előtt még szükséges. A többi alábbi adat a központi konfigurációból érkezik.</p>}
   <h2>Üzemeltető</h2>
   <dl class="legal-data">
     <div><dt>Név</dt><dd>{siteConfig.operatorName}</dd></div>
     <div><dt>Márkanév</dt><dd>{siteConfig.brandName}</dd></div>
     <div><dt>EV nyilvántartási szám</dt><dd>{siteConfig.evRegistrationNumber}</dd></div>
     <div><dt>Adószám</dt><dd>{siteConfig.taxNumber}</dd></div>
-    <div><dt>Székhely</dt><dd>{siteConfig.address || '[KITÖLTENDŐ PONTOS CÍM]'}</dd></div>
+    {siteConfig.address && <div><dt>Székhely</dt><dd>{siteConfig.address}</dd></div>}
     <div><dt>E-mail</dt><dd><a href={`mailto:${siteConfig.email}`} data-event="email_click">{siteConfig.email}</a></dd></div>
     {siteConfig.phone && <div><dt>Telefon</dt><dd><a href={`tel:${siteConfig.phoneHref}`} data-event="phone_click">{siteConfig.phone}</a></dd></div>}
   </dl>
